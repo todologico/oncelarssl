@@ -1,4 +1,4 @@
-## Oncelar - Laravel 11 - MariaDB - phpMyAdmin - Docker  
+## Oncelar SSL LOCALHOST - Laravel 11 - MariaDB - phpMyAdmin - Docker  
 ##### - Last update 17/mayo/2024.
   
 
@@ -7,6 +7,14 @@
 **Instalación no productiva:**  
 
 Clonar el repositorio.  
+
+generar el certificado
+
+openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048  
+openssl req -new -key private.pem -out request.csr  
+openssl x509 -req -days 365 -in request.csr -signkey private.pem -out certificate.pem  
+
+
 
 Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
 
