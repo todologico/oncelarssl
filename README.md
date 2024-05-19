@@ -14,6 +14,10 @@ openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
 openssl req -new -key private.pem -out request.csr  
 openssl x509 -req -days 365 -in request.csr -signkey private.pem -out certificate.pem  
 
+o con:
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt
+
 
 Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
 
