@@ -18,6 +18,11 @@ o con:
 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt
 
+LOG ERROR NGINX:
+
+tail -f /var/log/nginx/error.log  
+tail -f /var/log/nginx/access.log  
+
 
 Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
 
