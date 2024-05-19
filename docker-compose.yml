@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+  oncelar:
+    build:    
+      context: .
+    image: oncelar:latest
+    container_name: oncelar
+    hostname: oncelar
+    restart: unless-stopped
+    tty: true
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=oncelar-db
+      - DB_PORT=3310
+      - DB_DATABASE=oncelar
+      - DB_USERNAME=oncelar
+      - DB_PASSWORD=00000000
+    working_dir: /var/www/app
+    ports:
+      - '83:80'
+      - '84:443'
+    volumes:
+      - ./src:/var/www/app
+    networks:
+      - netdocker  
+  oncelar-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: oncelar-phpmyadmin
+    restart: unless-stopped
+    tty: true
+    environment:
+      - PMA_HOST=oncelar-db
+      - PMA_PORT=3310
+      - PMA_ARBITRARY=1
+      #- PMA_USER=oncelar
+      #- PMA_PASSWORD=00000000
+    ports:
+      - '89:80'
+    networks:
+      - netdocker
+  oncelar-db:
+    image: mariadb:latest
+    container_name: oncelar-db
+    hostname: oncelar-db
+    restart: unless-stopped
+    tty: true
+    environment:
+      - MARIADB_DATABASE=oncelar
+      - MARIADB_USER=oncelar
+      - MARIADB_PASSWORD=00000000
+      - MARIADB_ROOT_PASSWORD=00000000
+    command: --port=3310 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - '3310:3310'
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - netdocker
+networks:
+  netdocker:
+    driver: bridge
