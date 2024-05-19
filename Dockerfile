@@ -35,8 +35,8 @@ COPY ./virtualhost/nginx.conf /etc/nginx/
 COPY ./virtualhost/virtualhost.conf /etc/nginx/conf.d/
 
 # ssl certificate - private.pem (key)
-COPY ./ssl/certificate.pem /etc/nginx/ssl/
-COPY ./ssl/private.pem /etc/nginx/ssl/
+COPY ./ssl/localhost.crt /etc/nginx/ssl/
+COPY ./ssl/localhost.key /etc/nginx/ssl/
 
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /etc/
