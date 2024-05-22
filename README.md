@@ -8,27 +8,40 @@
 
 Clonar el repositorio.  
 
-Generar el certificado dentro de la carpeta ssl:
+Generar el nombre de dominio en el file /etc/hosts, como ser:
 
-openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048  
-openssl req -new -key private.pem -out request.csr  
-openssl x509 -req -days 365 -in request.csr -signkey private.pem -out certificate.pem  
+127.0.0.1 localhost.oncelar  
 
-o con:
+Generar el certificado dentro de la carpeta ssl con MKCERT:
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt
+**Crea tu propia entidad certificadora "virtual" con un solo comando**
+mkcert es una pequeña utilidad creada por el "crack" programador italiano Filippo Valsorda. Filippo ha trabajado en Cloudflare en programación relacionada con la criptografía, y actualmente está en Google en Nueva York en el equipo del lenguaje Go y en proyectos de seguridad y criptografía. En junio de 2018 creó la utilidad llamada mkcert, que es gratuita y Open Source. mkcert permite crear certificados digitales para cualquier dominio, incluido localhost, que son siempre válidos para usar en la máquina local.
 
-LOG ERROR NGINX:
+sudo apt install libnss3-tools  
+wget -O mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64  
+sudo chmod +x mkcert  
+sudo mv mkcert /usr/local/bin/  
+mkcert -install  
 
-tail -f /var/log/nginx/error.log  
-tail -f /var/log/nginx/access.log  
+Ahora en la carpeta del proyecto, abrimos una carpeta llamada ssl y dentro ejecutamos:
+
+mkcert localhost.oncelar
+
+Esto genera el certificado, la key y agrega una entidad certificadora en nuestra maquina que el browser puede ver.
+
+Entonces obtenemos:
+
+/ssl/localhost.oncelar.pem;
+/ssl/localhost.oncelar-key.pem;
 
 
 Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
 
 **mkdir -p src && mkdir -p db && docker-compose up -d**  
 
-El contenedor de laravel se visualiza en http://localhost:83/  
+INSEGURO:   El contenedor de laravel se visualiza en http://localhost:86/  
+SEGURO SSL: El contenedor de laravel se visualiza en https://localhost:92/  
+
 
 El contenedor de phpmyadmin se visualiza en http://localhost:89/  accediendo con host oncelar-db, usuario: oncelar, pass: 00000000  
 
@@ -97,7 +110,17 @@ Dentro del contenedor, con usuario no root (appuser), corremos:
 
 Y para retroceder:  
 
-**php artisan migrate:rollback**    
+**php artisan migrate:rollback**   
+
+
+LOG ERROR NGINX dentro del contenedor
+
+tail -f /var/log/nginx/error.log  
+tail -f /var/log/nginx/access.log  
+
+nginx -t  (status de nginx)  
+
+nginx -s reload  (reload de nginx)  
 
 --------------------------------------
 
