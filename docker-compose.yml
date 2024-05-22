@@ -1,10 +1,10 @@
 version: '3.7'
 services:
-  oncelar:
+  oncelarssl:
     build:    
       context: .
-    image: oncelar:latest
-    container_name: oncelar
+    image: oncelarssl:latest
+    container_name: oncelarssl
     hostname: oncelar
     restart: unless-stopped
     tty: true
@@ -17,10 +17,11 @@ services:
       - DB_PASSWORD=00000000
     working_dir: /var/www/app
     ports:
-      - '83:80'
-      - '84:443'
+      - '86:80'
+      - '92:443'
     volumes:
       - ./src:/var/www/app
+      - ./ssl:/etc/nginx/ssl
     networks:
       - netdocker  
   oncelar-phpmyadmin:

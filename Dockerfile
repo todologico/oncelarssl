@@ -19,7 +19,7 @@ RUN apt install -y php8.2-cli php8.2-fpm php8.2-common php8.2-mysql php8.2-pgsql
 RUN mkdir -p /var/run/php
 
 # nginx
-RUN apt install -y nginx
+RUN apt install -y openssl nginx 
 RUN cd /etc/nginx/sites-available && rm *
 RUN cd /etc/nginx/sites-enabled && rm *
 
@@ -30,18 +30,20 @@ RUN apt update && apt install -y nodejs
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY www.conf /etc/php/8.2/fpm/pool.d/
 
-# nginx virtualhost 80 and 443
+# nginx config y virtualhost 80 - ssl 443
 COPY ./virtualhost/nginx.conf /etc/nginx/
 COPY ./virtualhost/virtualhost.conf /etc/nginx/conf.d/
 
 # ssl certificate - private.pem (key)
-COPY ./ssl/localhost.crt /etc/nginx/ssl/
-COPY ./ssl/localhost.key /etc/nginx/ssl/
+COPY ./ssl/localhost.oncelar-key.pem /etc/nginx/ssl/
+COPY ./ssl/localhost.oncelar.pem /etc/nginx/ssl/
 
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /etc/
 
 VOLUME /var/www/app
+
+EXPOSE 80 443
 
 RUN chmod -R 755 /usr/local/bin/docker-entrypoint.sh
 
