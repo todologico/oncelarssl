@@ -31,8 +31,8 @@ Esto genera el certificado, la key y agrega una entidad certificadora en nuestra
 
 Entonces obtenemos:
 
-/ssl/localhost.oncelar.pem;
-/ssl/localhost.oncelar-key.pem;
+/ssl/localhost.oncelar.pem;  
+/ssl/localhost.oncelar-key.pem;  
 
 
 Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
