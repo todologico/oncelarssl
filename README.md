@@ -7,9 +7,13 @@
 
 **Non-productive Installation:**  
 
-Clone the repository..  
+Clone the repository.  
 
-Generate the domain name in the /etc/hosts file (with sudo), such as:
+Now, on our machine, we add the domain to the file /etc/hosts, accessed with sudo:
+
+**sudo nano /etc/hosts**    
+
+We get:  
 
 **127.0.0.1 localhost.oncelar**
 
