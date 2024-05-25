@@ -1,6 +1,6 @@
 ## Oncelar SSL Localhost - Laravel 11 - MariaDB - phpMyAdmin - Docker  
 ## Development environment for Laravel on Linux  
-##### - Last update 2024/05/24.
+##### - Last update 2024/05/24
   
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
@@ -9,13 +9,14 @@
 
 Clone the repository.  
 
-Now, on our machine, we add the domain to the file /etc/hosts, accessed with sudo:
+On our machine we add the domain "localhost.oncelar" to the file /etc/hosts, accessed with sudo:
 
 **sudo nano /etc/hosts**    
 
-We get:  
-
+With:  
 **127.0.0.1 localhost.oncelar**
+
+--------------------------------------------------------------------  
 
 Generate the certificate within the ssl folder using MKCERT:
 
