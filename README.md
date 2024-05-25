@@ -157,7 +157,7 @@ supervisord log:
 **logfile=/var/log/supervisor/supervisord.log**  
 
 --------------------------------------------------------------------  
-XDEBUG  
+XDEBUG (thanks Tommy!) 
 
 Xdebug is an extremely useful tool for PHP application development. It is a powerful debugger and profiler that provides several valuable features, including:
 
