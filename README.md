@@ -139,7 +139,16 @@ Error logs for NGINX inside the container
 
 --------------------------------------
 
-SUPERVISORD
+SUPERVISORD  
+Supervisor is a client/server system that allows its users to monitor and control a number of processes on UNIX-like operating systems. It provides an easy way to manage processes, especially in a server environment, where keeping services running is crucial.
+
+With Supervisor, you can:  
+
+Start, stop, and restart processes.
+Monitor the status of processes and receive notifications if they fail.
+Automatically restart processes if they exit unexpectedly.
+Manage multiple processes as a group.
+It's commonly used in Docker containers or other server environments to manage various processes such as web servers, application servers, databases, and background workers.
 
 **service supervisor status**  
 
