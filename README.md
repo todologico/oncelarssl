@@ -42,6 +42,7 @@ So we get:
 
 --------------------------------------------------------------------  
 
+**WE CREATE THE 3 SERVICES IN THEIR RESPECTIVE CONTAINERS:**  
 
 In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services.
 
