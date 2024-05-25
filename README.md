@@ -40,6 +40,9 @@ So we get:
 **/ssl/localhost.oncelar.pem;**  
 **/ssl/localhost.oncelar-key.pem;**  
 
+--------------------------------------------------------------------  
+
+
 In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services.
 
 **mkdir -p src && mkdir -p db && docker-compose up -d**  
