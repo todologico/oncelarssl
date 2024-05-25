@@ -9,24 +9,24 @@
 
 Clone the repository..  
 
-Generate the domain name in the /etc/hosts file, such as:
+Generate the domain name in the /etc/hosts file (with sudo), such as:
 
-127.0.0.1 localhost.oncelar
+**127.0.0.1 localhost.oncelar**
 
 Generate the certificate within the ssl folder using MKCERT:
 
-**Create your own "virtual" certificate authority with a single command**
+**Create your own "virtual" certificate authority with a single command**  
 mkcert is a small utility created by the skilled Italian programmer Filippo Valsorda. Filippo has worked at Cloudflare on cryptography-related programming, and he is currently at Google in New York on the Go language team and involved in security and cryptography projects. In June 2018, he created the utility called mkcert, which is free and Open Source. mkcert allows you to create digital certificates for any domain, including localhost, which are always valid for use on the local machine.
 
-sudo apt install libnss3-tools  
-wget -O mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64  
-sudo chmod +x mkcert  
-sudo mv mkcert /usr/local/bin/  
-mkcert -install  
+**sudo apt install libnss3-tools**  
+**wget -O mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64**  
+**sudo chmod +x mkcert**  
+**sudo mv mkcert /usr/local/bin/**  
+**mkcert -install**  
 
 Now, in the project folder, we create a folder called ssl and inside it, we run:
 
-mkcert localhost.oncelar
+**mkcert localhost.oncelar**
 
 This process generates the certificate, the key, and adds a certificate authority to our machine that the browser can recognize.
 
