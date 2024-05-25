@@ -15,8 +15,8 @@ Generate the domain name in the /etc/hosts file (with sudo), such as:
 
 Generate the certificate within the ssl folder using MKCERT:
 
-**Create your own "virtual" certificate authority with a single command**  
-mkcert is a small utility created by the skilled Italian programmer Filippo Valsorda. Filippo has worked at Cloudflare on cryptography-related programming, and he is currently at Google in New York on the Go language team and involved in security and cryptography projects. In June 2018, he created the utility called mkcert, which is free and Open Source. mkcert allows you to create digital certificates for any domain, including localhost, which are always valid for use on the local machine.
+**Create your own "virtual" certificate authority with a single command.**  
+Mkcert is a small utility created by the skilled Italian programmer Filippo Valsorda. Filippo has worked at Cloudflare on cryptography-related programming, and he is currently at Google in New York on the Go language team and involved in security and cryptography projects. In June 2018, he created the utility called mkcert, which is free and Open Source. mkcert allows you to create digital certificates for any domain, including localhost, which are always valid for use on the local machine.
 
 **sudo apt install libnss3-tools**  
 **wget -O mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64**  
@@ -32,8 +32,8 @@ This process generates the certificate, the key, and adds a certificate authorit
 
 So we get:
 
-/ssl/localhost.oncelar.pem;  
-/ssl/localhost.oncelar-key.pem;  
+**/ssl/localhost.oncelar.pem;**  
+**/ssl/localhost.oncelar-key.pem;**  
 
 In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services.
 
@@ -46,19 +46,19 @@ SECURE SSL: the Laravel container can be accessed at https://localhost.oncelar:9
 
 The phpMyAdmin container can be accessed at: http://localhost.oncelar:89  Login with the following credentials:  
 
-host oncelar-db  
-usuario: oncelar  
-pass: 00000000  
+**host oncelar-db**  
+**usuario: oncelar**  
+**pass: 00000000**  
 
 
 Database access configuration in the .env file is automatically populated from the entrypoint file.
 
-DB_CONNECTION=mysql  
-DB_HOST=oncelar-db  
-DB_PORT=3310  
-DB_DATABASE=oncelar  
-DB_USERNAME=oncelar  
-DB_PASSWORD=00000000  
+**DB_CONNECTION=mysql**  
+**DB_HOST=oncelar-db**  
+**DB_PORT=3310**  
+**DB_DATABASE=oncelar**  
+**DB_USERNAME=oncelar**  
+**DB_PASSWORD=00000000**  
 
 **COMMANDS WITH PHP ARTISAN WITHIN THE CONTAINER USING THE USER APPUSER**
 
@@ -66,11 +66,11 @@ When building the container, a non-root user (appuser) is created, which is requ
 
 To add this user, in the Dockerfile, I'm including:
 
-ARG USER_NAME=appuser
-ARG USER_UID=1000
-RUN useradd -u $USER_UID -ms /bin/bash $USER_NAME
-RUN usermod -aG 1000 $USER_NAME
-RUN usermod -aG www-data $USER_NAME
+**ARG USER_NAME=appuser**
+**ARG USER_UID=1000**
+**RUN useradd -u $USER_UID -ms /bin/bash $USER_NAME**
+**RUN usermod -aG 1000 $USER_NAME**
+**RUN usermod -aG www-data $USER_NAME**
 
 To run commands, you enter the container and switch users by executing:
 
@@ -119,12 +119,11 @@ And to rollback:
 
 Error logs for NGINX inside the container
 
-tail -f /var/log/nginx/error.log  
-tail -f /var/log/nginx/access.log  
+**tail -f /var/log/nginx/error.log**  
+**tail -f /var/log/nginx/access.log**  
 
-nginx -t  (status de nginx)  
-
-nginx -s reload  (reload de nginx)  
+**nginx -t  (status de nginx)**  
+**nginx -s reload  (reload de nginx)**  
 
 --------------------------------------
 
