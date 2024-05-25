@@ -69,6 +69,8 @@ Database access configuration in the .env file is automatically populated from t
 **DB_USERNAME=oncelar**  
 **DB_PASSWORD=00000000**  
 
+--------------------------------------------------------------------  
+
 **Commands with PHP Artisan within the container using the user appuser**  
 
 When building the container, a non-root user (appuser) is created, which is required for login. This user belongs to group 1000, hence has access to run artisan commands. 
@@ -110,7 +112,7 @@ root@oncelar:/var/www/app# su appuser
 appuser@oncelar:/var/www/app$ id appuser  
 uid=1000(appuser) gid=1000(appuser) groups=1000(appuser)  
 
---------------------------------------
+--------------------------------------------------------------------  
 
 Database Connectivity Tests  
 
@@ -125,6 +127,7 @@ And to rollback:
 
 **php artisan migrate:rollback**   
 
+--------------------------------------------------------------------  
 
 Error logs for NGINX inside the container
 
