@@ -1,21 +1,22 @@
 ## Oncelar SSL Localhost - Laravel 11 - MariaDB - phpMyAdmin - Docker  
-##### - Last update 19/mayo/2024.
+## Development Environment for Linux
+##### - Last update 2024/05/24.
   
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-**Instalación no productiva:**  
+**Non-productive Installation:**  
 
-Clonar el repositorio.  
+Clone the repository..  
 
-Generar el nombre de dominio en el file /etc/hosts, como ser:
+Generate the domain name in the /etc/hosts file, such as:
 
-127.0.0.1 localhost.oncelar  
+127.0.0.1 localhost.oncelar
 
-Generar el certificado dentro de la carpeta ssl con MKCERT:
+Generate the certificate within the ssl folder using MKCERT:
 
-**Crea tu propia entidad certificadora "virtual" con un solo comando**
-mkcert es una pequeña utilidad creada por el "crack" programador italiano Filippo Valsorda. Filippo ha trabajado en Cloudflare en programación relacionada con la criptografía, y actualmente está en Google en Nueva York en el equipo del lenguaje Go y en proyectos de seguridad y criptografía. En junio de 2018 creó la utilidad llamada mkcert, que es gratuita y Open Source. mkcert permite crear certificados digitales para cualquier dominio, incluido localhost, que son siempre válidos para usar en la máquina local.
+**Create your own "virtual" certificate authority with a single command**
+mkcert is a small utility created by the skilled Italian programmer Filippo Valsorda. Filippo has worked at Cloudflare on cryptography-related programming, and he is currently at Google in New York on the Go language team and involved in security and cryptography projects. In June 2018, he created the utility called mkcert, which is free and Open Source. mkcert allows you to create digital certificates for any domain, including localhost, which are always valid for use on the local machine.
 
 sudo apt install libnss3-tools  
 wget -O mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64  
@@ -23,29 +24,34 @@ sudo chmod +x mkcert
 sudo mv mkcert /usr/local/bin/  
 mkcert -install  
 
-Ahora en la carpeta del proyecto, abrimos una carpeta llamada ssl y dentro ejecutamos:
+Now, in the project folder, we create a folder called ssl and inside it, we run:
 
 mkcert localhost.oncelar
 
-Esto genera el certificado, la key y agrega una entidad certificadora en nuestra maquina que el browser puede ver.
+This process generates the certificate, the key, and adds a certificate authority to our machine that the browser can recognize.
 
-Entonces obtenemos:
+So we get:
 
 /ssl/localhost.oncelar.pem;  
 /ssl/localhost.oncelar-key.pem;  
 
-
-Situados en /oncelar, desde la consola ejecutar el siguiente comando, el cual creara las carpeta "db" (volumen mariadb) y "src" (codigo laravel) y levantará los contenedores de los tres servicios.
+In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services.
 
 **mkdir -p src && mkdir -p db && docker-compose up -d**  
 
-INSEGURO:   El contenedor de laravel se visualiza en http://localhost:86/  
-SEGURO SSL: El contenedor de laravel se visualiza en https://localhost:92/  
+UNSECURE: the Laravel container can be accessed at: http://localhost.oncelar:86  
+
+SECURE SSL: the Laravel container can be accessed at https://localhost.oncelar:92  
 
 
-El contenedor de phpmyadmin se visualiza en http://localhost:89/  accediendo con host oncelar-db, usuario: oncelar, pass: 00000000  
+The phpMyAdmin container can be accessed at: http://localhost.oncelar:89  Login with the following credentials:  
 
-Configuracion acceso DB en file .env que se ingresa automaticamente desde el file entrypoint 
+host oncelar-db  
+usuario: oncelar  
+pass: 00000000  
+
+
+Database access configuration in the .env file is automatically populated from the entrypoint file.
 
 DB_CONNECTION=mysql  
 DB_HOST=oncelar-db  
@@ -54,12 +60,11 @@ DB_DATABASE=oncelar
 DB_USERNAME=oncelar  
 DB_PASSWORD=00000000  
 
-**COMANDOS CON PHP ARTISAN DENTRO DEL CONTENEDOR CON USUARIO APPUSER**
+**COMMANDS WITH PHP ARTISAN WITHIN THE CONTAINER USING THE USER APPUSER**
 
-Al construir el contenedor se da de alta un usuario no root (appuser), con el cual es necesario loguearse.
-Este usuario pertenece al grupo 1000, por lo cual puede acceder a realizar comandos artisan.  
+When building the container, a non-root user (appuser) is created, which is required for login. This user belongs to group 1000, hence has access to run artisan commands. 
 
-Para dar de alta este usuario, en el Dockerfile estoy agregando:
+To add this user, in the Dockerfile, I'm including:
 
 ARG USER_NAME=appuser
 ARG USER_UID=1000
@@ -67,30 +72,30 @@ RUN useradd -u $USER_UID -ms /bin/bash $USER_NAME
 RUN usermod -aG 1000 $USER_NAME
 RUN usermod -aG www-data $USER_NAME
 
-y para poder correr comandos, se ingresa al contenedor y se cambia de usuario, corriendo:
+To run commands, you enter the container and switch users by executing:
 
 **docker exec -it oncelar bash**  
 
-revisamos todos los usuarios, verificando que el nuestro se encuentra activo:
+We check all users, ensuring that ours is active.
 
 **cat /etc/passwd**  
 
-cambiamos al usuario no root:
+We switch to the non-root user.
 
 **su appuser** 
 
-verificamos que accedemos a artisan:
+We verify that we have access to Artisan.
 
 **php artisan**  
 
-Opcionalmente puede hacerse directamente desde el interior del contenedor:  
+Optionally, this can be done directly from inside the container.  
 
 **docker exec -it oncelar bash**  
 **adduser appuser**  
 **usermod -aG 1000 appuser**  
 **id appuser**  
 
-lo que muestra:  
+What it displays:  
 
 root@oncelar:/var/www/app# su appuser  
 appuser@oncelar:/var/www/app$ id appuser  
@@ -98,22 +103,21 @@ uid=1000(appuser) gid=1000(appuser) groups=1000(appuser)
 
 --------------------------------------
 
-PRUEBAS DE CONECTIVIDAD DB  
+Database Connectivity Tests  
 
 **docker exec -it oncelar php artisan tinker**  
 **use Illuminate\Support\Facades\DB; DB::connection()->getPdo();**  
 
-O tambien es posible correr migraciones y hacer rollback, las cuales se muestran mediante phpmyadmin
-Dentro del contenedor, con usuario no root (appuser), corremos:  
+It's also possible to run migrations and perform rollbacks, which are displayed through phpMyAdmin. Within the container, with the non-root user (appuser), we run:
 
 **php artisan migrate**  
 
-Y para retroceder:  
+And to rollback: 
 
 **php artisan migrate:rollback**   
 
 
-LOG ERROR NGINX dentro del contenedor
+Error logs for NGINX inside the container
 
 tail -f /var/log/nginx/error.log  
 tail -f /var/log/nginx/access.log  
