@@ -18,7 +18,7 @@ With:
 
 --------------------------------------------------------------------  
 
-Generate the certificate within the ssl folder using MKCERT:
+**WE GENERATE THE SECURITY CERTIFICATE WITHIN THE SSL FOLDER USING MKCERT:**  
 
 **Create your own "virtual" certificate authority with a single command.**  
 Mkcert is a small utility created by the skilled Italian programmer Filippo Valsorda. Filippo has worked at Cloudflare on cryptography-related programming, and he is currently at Google in New York on the Go language team and involved in security and cryptography projects. In June 2018, he created the utility called mkcert, which is free and Open Source. mkcert allows you to create digital certificates for any domain, including localhost, which are always valid for use on the local machine.
