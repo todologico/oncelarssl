@@ -44,7 +44,7 @@ So we get:
 
 **WE CREATE THE 3 SERVICES IN THEIR RESPECTIVE CONTAINERS:**  
 
-In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services.
+In the /oncelar directory, execute the following command from the console. This will create the db folder (MariaDB volume) and the src folder (Laravel code), and it will start the containers for the three services. With non-root user:
 
 **mkdir -p src && mkdir -p db && docker-compose up -d**  
 
