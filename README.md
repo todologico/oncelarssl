@@ -137,7 +137,7 @@ Error logs for NGINX inside the container
 **nginx -t  (status de nginx)**  
 **nginx -s reload  (reload de nginx)**  
 
---------------------------------------
+--------------------------------------------------------------------  
 
 SUPERVISORD  
 Supervisor is a client/server system that allows its users to monitor and control a number of processes on UNIX-like operating systems. It provides an easy way to manage processes, especially in a server environment, where keeping services running is crucial.
@@ -155,3 +155,19 @@ It's commonly used in Docker containers or other server environments to manage v
 supervisord log:  
 
 **logfile=/var/log/supervisor/supervisord.log**  
+
+--------------------------------------------------------------------  
+XDEBUG  
+
+Xdebug is an extremely useful tool for PHP application development. It is a powerful debugger and profiler that provides several valuable features, including:
+
+**Code Debugging:** It allows setting breakpoints, inspecting variables, stepping through code execution, and performing other debugging actions to identify and fix errors in PHP code.
+
+**Error Tracing:** It provides detailed information about runtime errors, including stack traces and variable values at the time of the error, making troubleshooting easier.
+
+**Performance Profiling:** It enables analyzing the performance of PHP applications by generating detailed profiles showing the runtime of each function and the frequency of its call, helping identify bottlenecks and optimize code performance.
+
+**Remote Debugging:** It allows debugging PHP applications running on a remote server from a local development environment, facilitating the debugging process in production environments or remote servers.
+
+In summary, Xdebug is an essential tool for any PHP developer looking to enhance the efficiency and quality of their code, making debugging and optimization of their applications easier.
+
