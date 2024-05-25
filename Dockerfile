@@ -18,6 +18,9 @@ RUN apt update
 RUN apt install -y php8.2-cli php8.2-fpm php8.2-common php8.2-mysql php8.2-pgsql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-ldap php8.2-xml php8.2-bcmath
 RUN mkdir -p /var/run/php
 
+# Xdebug (thanks tommy)
+RUN apt install -y php8.2-xdebug
+
 # nginx
 RUN apt install -y openssl nginx 
 RUN cd /etc/nginx/sites-available && rm *
