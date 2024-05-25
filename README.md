@@ -69,17 +69,17 @@ Database access configuration in the .env file is automatically populated from t
 **DB_USERNAME=oncelar**  
 **DB_PASSWORD=00000000**  
 
-**COMMANDS WITH PHP ARTISAN WITHIN THE CONTAINER USING THE USER APPUSER**
+**Commands with PHP Artisan within the container using the user appuser**  
 
 When building the container, a non-root user (appuser) is created, which is required for login. This user belongs to group 1000, hence has access to run artisan commands. 
 
 To add this user, in the Dockerfile, I'm including:
 
-**ARG USER_NAME=appuser**
-**ARG USER_UID=1000**
-**RUN useradd -u $USER_UID -ms /bin/bash $USER_NAME**
-**RUN usermod -aG 1000 $USER_NAME**
-**RUN usermod -aG www-data $USER_NAME**
+**ARG USER_NAME=appuser**  
+**ARG USER_UID=1000**  
+**RUN useradd -u $USER_UID -ms /bin/bash $USER_NAME**  
+**RUN usermod -aG 1000 $USER_NAME**  
+**RUN usermod -aG www-data $USER_NAME**  
 
 To run commands, you enter the container and switch users by executing:
 
