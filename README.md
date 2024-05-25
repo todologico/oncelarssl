@@ -1,5 +1,5 @@
 ## Oncelar SSL Localhost - Laravel 11 - MariaDB - phpMyAdmin - Docker  
-## Development Environment for Linux
+## Development environment for Laravel on Linux  
 ##### - Last update 2024/05/24.
   
 
